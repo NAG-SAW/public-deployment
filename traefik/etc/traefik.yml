@@ -1,0 +1,20 @@
+global:
+  sendAnonymousUsage: false
+entryPoints:
+  web-http-secure:
+    address: ":443"
+  web-http:
+    address: ":80"
+providers:
+  file:
+    directory: /etc/traefik/dynamic
+    watch: true
+log:
+  level: WARN
+accessLog: {}
+certificatesResolvers:
+  letsEncrypt:
+    acme:
+      email: nag@saw.rwth-aachen.de
+      storage: /data/acme.json
+      tlsChallenge: {}

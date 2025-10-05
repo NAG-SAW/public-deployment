@@ -1,0 +1,10 @@
+tls:
+  certificates:
+    - certFile: /data/web.saw.rwth-aachen.de.crt
+      keyFile: /data/web.saw.rwth-aachen.de.key
+#   stores:
+#     default:
+#       defaultGeneratedCert:
+#         resolver: letsEncrypt
+#         domain:
+#           main: saw.rwth-aachen.de

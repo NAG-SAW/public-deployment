@@ -1,0 +1,42 @@
+http:
+  middlewares:
+    redirect-to-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
+    only-allow-rwth-mailserver:
+      ipAllowList:
+        sourceRange:
+          - "134.130.54.67/32"
+          - "10.10.12.0/24"
+  routers:
+    routerPublicSite:
+      entryPoints:
+        - "web-http"
+      service: public-site
+      rule: Host(`www.saw.rwth-aachen.de`) || Host(`saw.rwth-aachen.de`)
+      middlewares:
+       - redirect-to-https
+
+    routerPublicSiteSecure:
+      entryPoints:
+        - "web-http-secure"
+      service: public-site
+      rule: Host(`www.saw.rwth-aachen.de`) || Host(`saw.rwth-aachen.de`) && !Path(`/email/saw-mail-rz-ev.txt`)
+      tls: {}
+    
+    # TBD: Let nginx handle this by configuring it as being behind a Traefik reverse proxy
+    routerPublicSiteSecureRWTHMail:
+      entryPoints:
+        - "web-http-secure"
+      service: public-site
+      rule: (Host(`www.saw.rwth-aachen.de`) || Host(`saw.rwth-aachen.de`)) && Path(`/email/saw-mail-rz-ev.txt`)
+      tls: {}
+      middlewares:
+       - only-allow-rwth-mailserver
+
+  services:
+    public-site:
+      loadBalancer:
+        servers:
+          - url: http://site-public:80/
