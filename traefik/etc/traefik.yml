@@ -8,7 +8,7 @@ entryPoints:
 providers:
   file:
     directory: /etc/traefik/dynamic
-    watch: true
+    watch: false
 log:
   level: WARN
 accessLog: {}
