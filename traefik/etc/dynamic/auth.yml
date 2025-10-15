@@ -1,0 +1,33 @@
+http:
+  middlewares:
+    redirect-to-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
+    only-allow-nag:
+      ipAllowList:
+        sourceRange:
+          - "10.10.12.0/24"
+  routers:
+    routerAuthentik:
+      entryPoints:
+        - "web-http"
+      service: authentik
+      rule: Host(`auth.saw.rwth-aachen.de`)
+      middlewares:
+       - redirect-to-https
+
+    routerAuthentikSecure:
+      entryPoints:
+        - "web-http-secure"
+      service: authentik
+      rule: Host(`auth.saw.rwth-aachen.de`)
+      tls: {}
+      middlewares:
+        - only-allow-nag
+
+  services:
+    authentik:
+      loadBalancer:
+        servers:
+          - url: http://10.10.12.109/
