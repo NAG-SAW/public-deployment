@@ -12,9 +12,3 @@ providers:
 log:
   level: WARN
 accessLog: {}
-certificatesResolvers:
-  letsEncrypt:
-    acme:
-      email: nag@saw.rwth-aachen.de
-      storage: /data/acme.json
-      tlsChallenge: {}

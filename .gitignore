@@ -3,3 +3,4 @@ saw-mail-rz-ev.txt
 traefik/data/acme.json
 traefik/data/*.crt
 traefik/data/*.key
+traefik/data/*.pem

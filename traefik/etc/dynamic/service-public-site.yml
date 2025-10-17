@@ -1,9 +1,6 @@
 http:
   middlewares:
-    redirect-to-https:
-      redirectScheme:
-        scheme: https
-        permanent: true
+    # Hack, to be moved inside nginx later
     only-allow-rwth-mailserver:
       ipAllowList:
         sourceRange:

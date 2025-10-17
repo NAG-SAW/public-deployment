@@ -3,7 +3,7 @@ services:
     image: traefik:v3.5.3
     volumes:
       - ./traefik/etc:/etc/traefik:ro
-      - ./traefik/data:/data:rw
+      - ./traefik/data:/data:ro
     ports:
       - "443:443"
       - "80:80"
