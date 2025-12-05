@@ -1,0 +1,24 @@
+http:
+  routers:
+    routerWiki:
+      entryPoints:
+        - "web-http"
+      service: wiki
+      rule: Host(`wiki.saw.rwth-aachen.de`)
+      middlewares:
+       - redirect-to-https
+
+    routerWikiSecure:
+      entryPoints:
+        - "web-http-secure"
+      service: wiki
+      rule: Host(`wiki.saw.rwth-aachen.de`)
+      tls: {}
+      middlewares:
+        - only-allow-nag
+
+  services:
+    wiki:
+      loadBalancer:
+        servers:
+          - url: http://10.10.12.114/

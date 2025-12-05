@@ -1,6 +1,4 @@
 tls:
   certificates:
-    - certFile: /data/web.saw.rwth-aachen.de.crt
-      keyFile: /data/web.saw.rwth-aachen.de.key
-    - certFile: /data/auth.saw.rwth-aachen.de.cert.pem
-      keyFile: /data/auth.saw.rwth-aachen.de.key.pem
+    - certFile: /data/traefik.pem
+      keyFile: /data/private_key.pem
