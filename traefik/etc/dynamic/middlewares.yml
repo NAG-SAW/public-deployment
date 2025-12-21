@@ -9,3 +9,10 @@ http:
       ipAllowList:
         sourceRange:
           - "10.10.12.0/24"
+
+  # Global dummy service; Useful if you have a permanent redirect, but Traefik forces you to specify a service
+  services:
+    dummy:
+      loadBalancer:
+        servers:
+          - url: "http://0.0.0.0"  # not used, required placeholder

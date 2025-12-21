@@ -1,0 +1,26 @@
+# This file will redirect all traffik to "radius.saw.rwth-aachen.de" to "unifi.saw.rwth-aachen.de"
+http:
+  routers:
+    routerRadius:
+      entryPoints:
+        - "web-http"
+      service: dummy # See middlewares.yml
+      rule: Host(`radius.saw.rwth-aachen.de`)
+      middlewares:
+       - redirect-to-https
+
+    routerRadiusSecure:
+      entryPoints:
+        - "web-http-secure"
+      service: dummy # See middlewares.yml
+      rule: Host(`radius.saw.rwth-aachen.de`)
+      tls: {}
+      middlewares:
+        - permanent-redirect-radius
+
+  middlewares:
+    permanent-redirect-radius:
+      redirectRegex:
+        regex: "^https://radius.saw.rwth-aachen.de/(.*)"
+        replacement: "https://unifi.saw.rwth-aachen.de/${1}"
+        permanent: true
