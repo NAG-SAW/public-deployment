@@ -10,6 +10,13 @@ http:
         sourceRange:
           - "10.10.12.0/24"
 
+    only-allow-saw:
+      ipAllowList:
+        sourceRange:
+          - "10.10.12.0/24"
+          - "192.168.0.0/16"
+          # - "137.226.182.0/23"
+
   # Global dummy service; Useful if you have a permanent redirect, but Traefik forces you to specify a service
   services:
     dummy:

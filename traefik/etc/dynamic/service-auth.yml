@@ -15,7 +15,7 @@ http:
       rule: Host(`auth.saw.rwth-aachen.de`)
       tls: {}
       middlewares:
-        - only-allow-nag
+        - only-allow-saw
 
   services:
     authentik:

@@ -15,7 +15,7 @@ http:
       rule: Host(`wiki.saw.rwth-aachen.de`)
       tls: {}
       middlewares:
-        - only-allow-nag
+        - only-allow-saw
 
   services:
     wiki:
