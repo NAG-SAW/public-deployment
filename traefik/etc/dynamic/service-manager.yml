@@ -1,0 +1,24 @@
+http:
+  routers:
+    routerManager:
+      entryPoints:
+        - "web-http"
+      service: manager
+      rule: Host(`v2.manager.saw.rwth-aachen.de`)
+      middlewares:
+       - redirect-to-https
+
+    routerManagerSecure:
+      entryPoints:
+        - "web-http-secure"
+      service: manager
+      rule: Host(`v2.manager.saw.rwth-aachen.de`)
+      tls: {}
+      middlewares:
+        - only-allow-nag
+
+  services:
+    manager:
+      loadBalancer:
+        servers:
+          - url: http://10.10.12.111/
