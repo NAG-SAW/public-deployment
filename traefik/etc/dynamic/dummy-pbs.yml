@@ -1,0 +1,22 @@
+# RWTH issues a SSL Certificate only if you have a server listening on that IP 
+# This file will accept traffik for "pbs.saw.rwth-aachen.de" and block it
+# So this dummy provides nothing of value, actually. We use UnboundDNS in the Firewall
+# to redirect to the correct internal IP 10.10.12.99
+# http:
+#   routers:
+#     routerPBS:
+#       entryPoints:
+#         - "web-http"
+#       service: dummy # See middlewares.yml
+#       rule: Host(`pbs.saw.rwth-aachen.de`)
+#       middlewares:
+#        - redirect-to-https
+
+#     routerPBSSecure:
+#       entryPoints:
+#         - "web-http-secure"
+#       service: dummy # See middlewares.yml
+#       rule: Host(`pbs.saw.rwth-aachen.de`)
+#       tls: {}
+#       middlewares:
+#         - only-allow-nag
