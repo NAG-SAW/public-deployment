@@ -1,12 +1,4 @@
 http:
-  middlewares:
-    # Hack, to be moved inside nginx later
-    only-allow-rwth-mailserver:
-      ipAllowList:
-        sourceRange:
-          - "134.130.54.67/32"
-          # Testing for us
-          - "10.10.12.0/24"
   routers:
     routerPublicSite:
       entryPoints:
@@ -20,18 +12,8 @@ http:
       entryPoints:
         - "web-http-secure"
       service: public-site
-      rule: Host(`www.saw.rwth-aachen.de`) || Host(`saw.rwth-aachen.de`) && !Path(`/email/saw-mail-rz-ev.txt`)
+      rule: Host(`www.saw.rwth-aachen.de`) || Host(`saw.rwth-aachen.de`)
       tls: {}
-    
-    # TBD: Let nginx handle this by configuring it as being behind a Traefik reverse proxy
-    routerPublicSiteSecureRWTHMail:
-      entryPoints:
-        - "web-http-secure"
-      service: public-site
-      rule: (Host(`www.saw.rwth-aachen.de`) || Host(`saw.rwth-aachen.de`)) && Path(`/email/saw-mail-rz-ev.txt`)
-      tls: {}
-      middlewares:
-       - only-allow-rwth-mailserver
 
   services:
     public-site:
