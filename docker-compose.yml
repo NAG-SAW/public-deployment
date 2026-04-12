@@ -1,6 +1,6 @@
 services:
   traefik:
-    image: traefik:v3.6.12
+    image: traefik:v3.6.13
     volumes:
       - ./traefik/etc:/etc/traefik:ro
       - ./traefik/data:/data:ro
