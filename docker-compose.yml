@@ -1,6 +1,7 @@
 services:
   traefik:
-    image: traefik:v3.6.13
+    image: traefik:v3.6
+    container_name: traefik
     volumes:
       - ./traefik/etc:/etc/traefik:ro
       - ./traefik/data:/data:ro
@@ -14,19 +15,40 @@ services:
 
   site-public:
     image: nginx:alpine
+    container_name: nginx-public
     volumes:
-      - ./nginx/conf.d/defaults.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./nginx/conf.d/cache.conf:/etc/nginx/conf.d/cache.conf:ro
+      - ./nginx-public/conf.d/defaults.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx-public/conf.d/cache.conf:/etc/nginx/conf.d/cache.conf:ro
       - ./public-website/html:/usr/share/nginx/html:ro
-      - ./nginx/saw-mail-rz-ev.txt:/email/saw-mail-rz-ev.txt:ro
-      - nginx-cache:/var/cache/nginx
+      - ./nginx-public/saw-mail-rz-ev.txt:/email/saw-mail-rz-ev.txt:ro
+      - site-public-cache:/var/cache/nginx
     restart: always
     networks:
       site-net:
         ipv4_address: 172.18.0.3
 
+  saw-services:
+    build: ./saw-services
+    container_name: saw-services
+    environment:
+      - API_URL=http://backend-convert-pdfa:8000 
+    depends_on:
+      - backend-convert-pdfa
+    restart: always
+    networks:
+      site-net:
+        ipv4_address: 172.18.0.4
+
+  backend-convert-pdfa:
+    build: ./backend/convert-to-pdfa
+    container_name: convert-pdfa
+    restart: always
+    networks:
+      site-net:
+        ipv4_address: 172.18.0.5
+
 volumes:
-  nginx-cache:
+  site-public-cache:
 
 networks:
   # We explicitly configure dockers container network here so we can give nginx a static IP for treafik

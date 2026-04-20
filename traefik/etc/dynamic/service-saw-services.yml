@@ -1,0 +1,24 @@
+http:
+  routers:
+    routerSAWServices:
+      entryPoints:
+        - "web-http"
+      service: saw-services
+      rule: Host(`services.saw.rwth-aachen.de`)
+      middlewares:
+       - redirect-to-https
+
+    routerSAWServicesSecure:
+      entryPoints:
+        - "web-http-secure"
+      service: saw-services
+      rule: Host(`services.saw.rwth-aachen.de`)
+      tls: {}
+      middlewares:
+        - only-allow-saw
+
+  services:
+    saw-services:
+      loadBalancer:
+        servers:
+          - url: http://saw-services:3000/

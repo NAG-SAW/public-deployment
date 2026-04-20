@@ -1,0 +1,6 @@
+[submodule "saw-services"]
+	path = saw-services
+	url = https://github.com/NAG-SAW/saw-services.git
+[submodule "backend/convert-to-pdfa"]
+	path = backend/convert-to-pdfa
+	url = https://github.com/NAG-SAW/convert-to-pdfa.git

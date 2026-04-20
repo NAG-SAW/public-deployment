@@ -2,3 +2,5 @@ tls:
   certificates:
     - certFile: /data/traefik.pem
       keyFile: /data/private_key.pem
+    - certFile: /data/services.saw.rwth-aachen.de.crt.pem
+      keyFile: /data/services.saw.rwth-aachen.de.key.pem
