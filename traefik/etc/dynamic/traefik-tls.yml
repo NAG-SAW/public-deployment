@@ -2,5 +2,8 @@ tls:
   certificates:
     - certFile: /data/traefik.pem
       keyFile: /data/private_key.pem
+    # Note: Remove these if the main certificate has been renewed with these twoincluded!
     - certFile: /data/services.saw.rwth-aachen.de.crt.pem
       keyFile: /data/services.saw.rwth-aachen.de.key.pem
+    - certFile: /data/paperless.saw.rwth-aachen.de.crt.pem
+      keyFile: /data/paperless.saw.rwth-aachen.de.key.pem
